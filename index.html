@@ -1,0 +1,1981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpha Automations — Automation for Singapore SMEs</title>
+    <meta name="description" content="I help local Singapore businesses automate repetitive work — quotations, customer communication, reporting, and lead management.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #09090b;
+            --bg-secondary: #111114;
+            --bg-card: #18181b;
+            --bg-card-hover: #1e1e22;
+            --border: #27272a;
+            --border-light: #3f3f46;
+            --text-primary: #fafafa;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --accent-green: #22c55e;
+            --accent-green-hover: #16a34a;
+            --accent-green-glow: rgba(34, 197, 94, 0.15);
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --gradient-hero: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #0f0f1a 100%);
+            --radius: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --max-width: 1100px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(9, 9, 11, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-logo img {
+            height: 36px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: none;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-link {
+            font-size: 14px;
+            color: var(--text-secondary);
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+
+        .nav-link:hover { color: var(--text-primary); }
+
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent-green);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: var(--radius);
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .nav-cta:hover { background: var(--accent-green-hover); }
+
+        .nav-cta svg { width: 16px; height: 16px; }
+
+        .mobile-toggle {
+            display: flex;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 64px;
+            left: 0;
+            right: 0;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px 24px;
+        }
+
+        .mobile-menu.active { display: block; }
+
+        .mobile-menu a {
+            display: block;
+            padding: 12px 0;
+            color: var(--text-secondary);
+            font-size: 15px;
+            font-weight: 500;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .mobile-menu a:last-child { border-bottom: none; }
+
+        .mobile-menu .nav-cta {
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+            padding: 12px 20px;
+        }
+
+        /* Sections */
+        .section {
+            padding: 80px 24px;
+        }
+
+        .section-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 560px;
+            line-height: 1.7;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .section-header .section-subtitle {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 140px 24px 100px;
+            background: var(--gradient-hero);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .hero-aurora {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .aurora-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            will-change: transform;
+        }
+
+        /* Large green bloom — centre-top */
+        .aurora-blob-1 {
+            width: 720px;
+            height: 720px;
+            background: radial-gradient(circle, rgba(34,197,94,0.18) 0%, transparent 70%);
+            top: -260px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: aBlob1 16s ease-in-out infinite alternate;
+        }
+
+        /* Blue — top-right */
+        .aurora-blob-2 {
+            width: 480px;
+            height: 480px;
+            background: radial-gradient(circle, rgba(59,130,246,0.16) 0%, transparent 70%);
+            top: -80px;
+            right: -60px;
+            animation: aBlob2 20s ease-in-out infinite alternate;
+        }
+
+        /* Purple — bottom-left */
+        .aurora-blob-3 {
+            width: 420px;
+            height: 420px;
+            background: radial-gradient(circle, rgba(139,92,246,0.13) 0%, transparent 70%);
+            bottom: -80px;
+            left: -40px;
+            animation: aBlob3 22s ease-in-out infinite alternate;
+        }
+
+        /* Teal accent — bottom-right */
+        .aurora-blob-4 {
+            width: 340px;
+            height: 340px;
+            background: radial-gradient(circle, rgba(6,182,212,0.10) 0%, transparent 70%);
+            bottom: -60px;
+            right: 8%;
+            animation: aBlob4 18s ease-in-out infinite alternate;
+        }
+
+        @keyframes aBlob1 {
+            0%   { transform: translateX(-50%) translateY(0)   scale(1); }
+            100% { transform: translateX(-40%) translateY(60px) scale(1.12); }
+        }
+        @keyframes aBlob2 {
+            0%   { transform: translate(0, 0)    scale(1); }
+            100% { transform: translate(-70px, 80px) scale(0.88); }
+        }
+        @keyframes aBlob3 {
+            0%   { transform: translate(0, 0)    scale(1); }
+            100% { transform: translate(80px, -70px) scale(1.15); }
+        }
+        @keyframes aBlob4 {
+            0%   { transform: translate(0, 0)    scale(1); }
+            100% { transform: translate(-50px, -60px) scale(1.1); }
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 50% 40%, rgba(34, 197, 94, 0.07) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 60% at 20% 60%, rgba(59, 130, 246, 0.05) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 60% at 80% 30%, rgba(34, 197, 94, 0.04) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 32px 32px;
+            pointer-events: none;
+            z-index: 0;
+            mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+        }
+
+        .hero-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            border-radius: 100px;
+            padding: 6px 16px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--accent-green);
+            margin-bottom: 32px;
+        }
+
+        .hero-badge-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .hero h1 {
+            font-size: 40px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            margin-bottom: 24px;
+            text-shadow: 0 0 60px rgba(34, 197, 94, 0.12), 0 2px 40px rgba(0,0,0,0.4);
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--accent-green), #4ade80);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-sub {
+            font-size: 17px;
+            color: var(--text-secondary);
+            max-width: 520px;
+            margin: 0 auto 40px;
+            line-height: 1.75;
+            font-weight: 400;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--accent-green);
+            color: #fff;
+            padding: 16px 32px;
+            border-radius: var(--radius);
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.2s;
+            box-shadow: 0 0 30px var(--accent-green-glow);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-green-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 0 40px rgba(34, 197, 94, 0.25);
+        }
+
+        .btn-primary svg { width: 20px; height: 20px; }
+
+        .btn-secondary {
+            font-size: 14px;
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+
+        .btn-secondary:hover { color: var(--text-secondary); }
+
+        /* Problem */
+        .problem {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .problem-inner {
+            max-width: 680px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .problem h2 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .problem p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Portfolio Slider */
+        .portfolio-slider-wrapper {
+            position: relative;
+        }
+
+        .portfolio-grid {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            padding-bottom: 8px;
+        }
+
+        .portfolio-grid::-webkit-scrollbar { display: none; }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            transition: all 0.3s;
+            min-width: 100%;
+            scroll-snap-align: start;
+            flex: 0 0 100%;
+            box-sizing: border-box;
+        }
+
+        .project-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-light);
+            transform: translateY(-2px);
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            z-index: 2;
+        }
+
+        .slider-btn:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .slider-btn svg { width: 20px; height: 20px; }
+
+        #sliderPrev { left: -22px; }
+        #sliderNext { right: -22px; }
+
+        .slider-dots {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 24px;
+        }
+
+        .slider-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border);
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            padding: 0;
+        }
+
+        .slider-dot.active {
+            background: var(--accent-green);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        .project-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .project-icon svg { width: 24px; height: 24px; }
+
+        .project-icon.blue { background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); }
+        .project-icon.purple { background: rgba(139, 92, 246, 0.1); color: var(--accent-purple); }
+        .project-icon.green { background: rgba(34, 197, 94, 0.1); color: var(--accent-green); }
+
+        .project-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            letter-spacing: -0.01em;
+        }
+
+        .project-client {
+            font-size: 13px;
+            color: var(--accent-green);
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .project-details {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .project-detail {
+            display: flex;
+            gap: 12px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .project-detail-label {
+            flex-shrink: 0;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+            width: 64px;
+            padding-top: 2px;
+        }
+
+        .project-detail-text {
+            color: var(--text-secondary);
+        }
+
+        .project-result {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: rgba(34, 197, 94, 0.06);
+            border: 1px solid rgba(34, 197, 94, 0.12);
+            border-radius: var(--radius);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent-green);
+        }
+
+        .project-result svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+        /* How It Works */
+        .steps { background: var(--bg-secondary); }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 32px 24px;
+        }
+
+        .step-number {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--accent-green), #4ade80);
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 800;
+            margin: 0 auto 20px;
+        }
+
+        .step h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+
+        .step p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        /* About */
+        .about-content {
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            gap: 32px;
+            align-items: flex-start;
+        }
+
+        .about-photo {
+            flex-shrink: 0;
+            width: 280px;
+        }
+
+        .about-photo img {
+            width: 100%;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            object-fit: cover;
+            aspect-ratio: 3 / 4;
+        }
+
+        .about-text {
+            flex: 1;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+        }
+
+        @media (max-width: 768px) {
+            .about-content {
+                flex-direction: column;
+                align-items: center;
+            }
+            .about-photo {
+                width: 200px;
+            }
+        }
+
+        .about-text p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .about-text p:last-child { margin-bottom: 0; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .stat {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            columns: 1;
+            gap: 20px;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            break-inside: avoid;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            margin-bottom: 20px;
+            transition: border-color 0.2s;
+        }
+
+        .testimonial-card:hover {
+            border-color: var(--border-light);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-client {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .testimonial-name {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--text-primary);
+        }
+
+        .testimonial-business {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .testimonial-stars {
+            color: #facc15;
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-service {
+            font-size: 13px;
+            color: var(--accent-green);
+            font-style: italic;
+            margin-bottom: 14px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .testimonial-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.75;
+        }
+
+        .testimonial-text p {
+            margin-bottom: 12px;
+        }
+
+        .testimonial-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .testimonial-highlight {
+            display: inline-block;
+            margin-top: 14px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-green);
+            background: rgba(34, 197, 94, 0.08);
+            border: 1px solid rgba(34, 197, 94, 0.15);
+            border-radius: 6px;
+            padding: 6px 12px;
+        }
+
+        @media (min-width: 640px) {
+            .testimonials-grid {
+                columns: 2;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .testimonials-grid {
+                columns: 3;
+            }
+        }
+
+        /* CTA / Contact */
+        .cta {
+            background: var(--gradient-hero);
+            position: relative;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(34, 197, 94, 0.06) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .cta-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .cta p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.7;
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-linkedin {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .btn-linkedin:hover { color: var(--text-primary); }
+
+        .btn-linkedin svg { width: 18px; height: 18px; }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-primary);
+            border-top: 1px solid var(--border);
+            padding: 32px 24px;
+        }
+
+        .footer-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover { color: var(--text-secondary); }
+
+        .footer-link svg { width: 16px; height: 16px; }
+
+        /* Floating WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 90;
+            width: 56px;
+            height: 56px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(34, 197, 94, 0.3);
+            transition: all 0.2s;
+            animation: float-pulse 2.5s infinite;
+        }
+
+        .whatsapp-float:hover {
+            background: var(--accent-green-hover);
+            transform: scale(1.08);
+        }
+
+        .whatsapp-float svg { width: 28px; height: 28px; color: #fff; }
+
+        @keyframes float-pulse {
+            0%, 100% { box-shadow: 0 4px 20px rgba(34, 197, 94, 0.3); }
+            50% { box-shadow: 0 4px 30px rgba(34, 197, 94, 0.5); }
+        }
+
+        /* Responsive */
+        @media (min-width: 640px) {
+            .nav-links { display: flex; }
+            .mobile-toggle { display: none; }
+
+            .hero { padding: 160px 24px 120px; }
+            .hero h1 { font-size: 52px; }
+            .hero-sub { font-size: 20px; }
+            .hero-actions { flex-direction: row; justify-content: center; }
+
+            .section { padding: 100px 24px; }
+            .section-title { font-size: 36px; }
+
+            .problem h2 { font-size: 28px; }
+
+            .project-card { min-width: auto; flex: 0 0 calc((100% - 48px) / 3); }
+
+            .steps-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+            .stats-grid { grid-template-columns: repeat(4, 1fr); }
+
+            .footer-inner { flex-direction: row; justify-content: space-between; }
+
+            .cta h2 { font-size: 36px; }
+        }
+
+        @media (min-width: 768px) {
+            .hero h1 { font-size: 56px; }
+        }
+
+        /* ── Process Tabs ── */
+        .process-tabs-wrapper { margin-top: 40px; }
+
+        .process-tab-bar {
+            display: flex;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 4px;
+            gap: 4px;
+            margin-bottom: 16px;
+        }
+
+        .process-tab {
+            flex: 1;
+            padding: 12px 0;
+            border: none;
+            border-radius: 7px;
+            background: transparent;
+            color: var(--text-muted);
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .process-tab.active {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        .process-panel-container {
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .process-panel {
+            display: none;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .process-panel.active { display: grid; }
+
+        .process-visual {
+            background: #0d0d12;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            min-height: 340px;
+            border-right: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .process-info {
+            padding: 40px 36px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 14px;
+        }
+
+        .process-step-num {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.06em;
+        }
+
+        .process-info h3 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.3;
+            margin: 0;
+        }
+
+        .process-info p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* Mock dashboard pieces */
+        .mock-row { display: flex; gap: 10px; }
+
+        .mock-card {
+            background: #161620;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 8px;
+            padding: 14px;
+            flex: 1;
+        }
+
+        .mock-card-label {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .mock-card-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ef4444;
+        }
+
+        .mock-card-value.positive { color: #22c55e; }
+
+        .mock-sparkline {
+            height: 30px;
+            margin-top: 8px;
+            opacity: 0.5;
+            background: linear-gradient(to top, rgba(239,68,68,0.15), transparent);
+            border-radius: 3px;
+        }
+
+        .mock-list-card {
+            background: #161620;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 8px;
+            padding: 14px;
+            flex: 1;
+        }
+
+        .mock-list-title {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .mock-bar-row { margin-bottom: 8px; }
+
+        .mock-bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 9px;
+            color: var(--text-muted);
+            margin-bottom: 3px;
+        }
+
+        .mock-bar-track {
+            height: 4px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 99px;
+            overflow: hidden;
+        }
+
+        .mock-bar-fill {
+            height: 100%;
+            border-radius: 99px;
+            background: var(--accent-green);
+        }
+
+        /* Step 2 mockups */
+        .mock-chart-card {
+            background: #161620;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 8px;
+            padding: 14px;
+        }
+
+        .mock-chart-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 5px;
+            height: 50px;
+            margin-top: 8px;
+        }
+
+        .mock-bar-col {
+            flex: 1;
+            background: rgba(34,197,94,0.25);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .mock-code-card {
+            background: #0a0a10;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 8px;
+            padding: 14px;
+            font-size: 9px;
+            font-family: 'Courier New', monospace;
+            line-height: 1.7;
+            flex: 1;
+        }
+
+        .mock-code-line { white-space: nowrap; overflow: hidden; }
+        .mock-code-comment { color: #4b5563; }
+        .mock-code-keyword { color: #818cf8; }
+        .mock-code-fn { color: #22c55e; }
+        .mock-code-string { color: #fb923c; }
+        .mock-code-var { color: #e2e8f0; }
+
+        /* Step 3 mockups */
+        .mock-area-chart {
+            background: #161620;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 8px;
+            padding: 14px;
+        }
+
+        .mock-area-svg {
+            width: 100%;
+            height: 70px;
+            display: block;
+            margin-top: 8px;
+        }
+
+        @media (max-width: 639px) {
+            .process-panel { grid-template-columns: 1fr; }
+            .process-visual { border-right: none; border-bottom: 1px solid var(--border); min-height: 220px; }
+            .process-info { padding: 24px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo"><img src="logo.svg" alt="Alpha Automations"> Alpha Automations</a>
+            <div class="nav-links">
+                <a href="#portfolio" class="nav-link">Portfolio</a>
+                <a href="#process" class="nav-link">How It Works</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#testimonials" class="nav-link">Testimonials</a>
+                <a href="https://wa.me/6589308246?text=Hi%2C%20I%27m%20interested%20in%20automating%20my%20business%20workflows" target="_blank" rel="noopener" class="nav-cta">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    Chat on WhatsApp
+                </a>
+            </div>
+            <button class="mobile-toggle" onclick="document.getElementById('mobile-menu').classList.toggle('active')" aria-label="Toggle menu">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="mobile-menu">
+            <a href="#portfolio" onclick="document.getElementById('mobile-menu').classList.remove('active')">Portfolio</a>
+            <a href="#process" onclick="document.getElementById('mobile-menu').classList.remove('active')">How It Works</a>
+            <a href="#about" onclick="document.getElementById('mobile-menu').classList.remove('active')">About</a>
+            <a href="https://wa.me/6589308246?text=Hi%2C%20I%27m%20interested%20in%20automating%20my%20business%20workflows" target="_blank" rel="noopener" class="nav-cta">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Chat on WhatsApp
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-aurora" aria-hidden="true">
+            <div class="aurora-blob aurora-blob-1"></div>
+            <div class="aurora-blob aurora-blob-2"></div>
+            <div class="aurora-blob aurora-blob-3"></div>
+            <div class="aurora-blob aurora-blob-4"></div>
+        </div>
+        <div class="hero-inner">
+            <div class="hero-badge">
+                <span class="hero-badge-dot"></span>
+                Trusted by Singapore SMEs
+            </div>
+            <h1>Automate Smarter.<br><span class="highlight">Grow Faster.</span></h1>
+            <p class="hero-sub">Automate the 'busy work.' Outsource the logic to AI.</p>
+            <div class="hero-actions">
+                <a href="https://wa.me/6589308246?text=Hi%2C%20I%27m%20interested%20in%20automating%20my%20business%20workflows" target="_blank" rel="noopener" class="btn-primary">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    Let's Chat on WhatsApp
+                </a>
+                <a href="#portfolio" class="btn-secondary">See my work &#8595;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Statement -->
+    <section class="section problem">
+        <div class="problem-inner">
+            <span class="section-label">The Problem</span>
+            <h2>Hours of work, done in minutes.</h2>
+            <p>I'll identify the leaks in your workflows that's costing your team an extra 10-20 hours a week, and build custom workflow solutions that fix them. From strategy to launch. </p>
+        </div>
+    </section>
+
+    <!-- Portfolio -->
+    <section id="portfolio" class="section">
+        <div class="section-inner">
+            <div class="section-header">
+                <span class="section-label">Portfolio</span>
+                <h2 class="section-title">Real systems. Real results.</h2>
+                <p class="section-subtitle">Here's what I've built for local businesses just like yours.</p>
+            </div>
+            <div class="portfolio-slider-wrapper">
+            <div class="portfolio-grid" id="portfolioSlider">
+                <!-- Card 1: Smart Quotation Engine -->
+                <div class="project-card">
+                    <div class="project-icon blue">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    </div>
+                    <h3>Smart Quotation Engine</h3>
+                    <p class="project-client">Contractors, Trade &amp; Field Service Businesses</p>
+                    <div class="project-details">
+                        <div class="project-detail">
+                            <span class="project-detail-label">Problem</span>
+                            <span class="project-detail-text">Quoting manually takes 30-45 minutes per job — pulling material costs, calculating labour, formatting the document, sending it over WhatsApp</span>
+                        </div>
+                        <div class="project-detail">
+                            <span class="project-detail-label">Solution</span>
+                            <span class="project-detail-text">A custom system that takes job inputs, calculates costs against your live price list, applies your margins, and outputs a branded PDF quote — ready to send in under 2 minutes. Integrates with your existing tools.</span>
+                        </div>
+                    </div>
+                    <div class="project-result">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                        5+ hours saved weekly — faster quotes, more jobs won
+                    </div>
+                </div>
+                <!-- Card 2: Lead Qualification & Response System -->
+                <div class="project-card">
+                    <div class="project-icon green">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                    </div>
+                    <h3>Lead Qualification &amp; Response System</h3>
+                    <p class="project-client">Real Estate Agents, Service &amp; Appointment-Based Businesses</p>
+                    <div class="project-details">
+                        <div class="project-detail">
+                            <span class="project-detail-label">Problem</span>
+                            <span class="project-detail-text">Leads enquire at all hours across WhatsApp, Instagram, and web forms. By the time you reply the next morning, they've already contacted a competitor</span>
+                        </div>
+                        <div class="project-detail">
+                            <span class="project-detail-label">Solution</span>
+                            <span class="project-detail-text">An automated multi-channel responder that instantly replies, asks qualifying questions, scores the lead, and either books a slot or routes hot leads directly to you — all before you've woken up</span>
+                        </div>
+                    </div>
+                    <div class="project-result">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                        Zero leads lost to slow response time
+                    </div>
+                </div>
+                <!-- Card 3: Automated Business Reporting -->
+                <div class="project-card">
+                    <div class="project-icon purple">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                    </div>
+                    <h3>Automated Business Reporting</h3>
+                    <p class="project-client">Agencies, F&amp;B Operators, E-commerce Sellers</p>
+                    <div class="project-details">
+                        <div class="project-detail">
+                            <span class="project-detail-label">Problem</span>
+                            <span class="project-detail-text">Your numbers live across Shopee, Lazada, Google Sheets, POS systems, and ad platforms. Getting a clear picture of performance means hours of manual pulling and formatting every week</span>
+                        </div>
+                        <div class="project-detail">
+                            <span class="project-detail-label">Solution</span>
+                            <span class="project-detail-text">A fully automated pipeline that pulls data from all your sources, consolidates it, and delivers a clean, structured report to your inbox or Telegram — on a schedule you set</span>
+                        </div>
+                    </div>
+                    <div class="project-result">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                        Full business overview in 10 minutes, not half a day
+                    </div>
+                </div>
+                <!-- Card 4: Sales Follow-Up Pipeline -->
+                <div class="project-card">
+                    <div class="project-icon blue">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    </div>
+                    <h3>Sales Follow-Up Pipeline</h3>
+                    <p class="project-client">Sales Teams, Property Agents, B2B Service Providers</p>
+                    <div class="project-details">
+                        <div class="project-detail">
+                            <span class="project-detail-label">Problem</span>
+                            <span class="project-detail-text">You send a proposal, the client goes quiet, and you forget to follow up. Deals that were nearly closed go cold because nobody chased at the right time</span>
+                        </div>
+                        <div class="project-detail">
+                            <span class="project-detail-label">Solution</span>
+                            <span class="project-detail-text">A structured follow-up sequence triggered the moment a quote is sent — timed messages over days and weeks, personalised by deal type, that keep you top of mind without any manual effort</span>
+                        </div>
+                    </div>
+                    <div class="project-result">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                        30% more quotes converted without extra legwork
+                    </div>
+                </div>
+                <!-- Card 5: Client Progress Communication System -->
+                <div class="project-card">
+                    <div class="project-icon green">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                    </div>
+                    <h3>Client Progress Communication System</h3>
+                    <p class="project-client">Construction, Renovation &amp; Logistics Companies</p>
+                    <div class="project-details">
+                        <div class="project-detail">
+                            <span class="project-detail-label">Problem</span>
+                            <span class="project-detail-text">Clients chase your team daily for updates. Staff spend hours on the phone explaining status instead of doing actual work — and clients still feel left in the dark</span>
+                        </div>
+                        <div class="project-detail">
+                            <span class="project-detail-label">Solution</span>
+                            <span class="project-detail-text">A milestone-triggered update system that automatically notifies clients via WhatsApp or SMS each time their job moves to the next stage — with photos, ETAs, and next steps included</span>
+                        </div>
+                    </div>
+                    <div class="project-result">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                        70% fewer inbound status calls — clients who actually feel informed
+                    </div>
+                </div>
+                <!-- Card 6: Field Operations & Dispatch System -->
+                <div class="project-card">
+                    <div class="project-icon purple">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                    </div>
+                    <h3>Field Operations &amp; Dispatch System</h3>
+                    <p class="project-client">Cleaning, Maintenance &amp; Multi-Technician Service Businesses</p>
+                    <div class="project-details">
+                        <div class="project-detail">
+                            <span class="project-detail-label">Problem</span>
+                            <span class="project-detail-text">Jobs are coordinated through WhatsApp groups. Double bookings happen, workers show up at wrong locations, and you have no real-time visibility over your team's schedule</span>
+                        </div>
+                        <div class="project-detail">
+                            <span class="project-detail-label">Solution</span>
+                            <span class="project-detail-text">A centralised dispatch system that assigns jobs based on availability and location, pushes schedules to each worker's phone, and sends customers automatic booking confirmations and reminders</span>
+                        </div>
+                    </div>
+                    <div class="project-result">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                        Zero missed appointments — full visibility over every job
+                    </div>
+                </div>
+            </div>
+            <button class="slider-btn" id="sliderPrev" aria-label="Previous">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <button class="slider-btn" id="sliderNext" aria-label="Next">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <div class="slider-dots" id="sliderDots"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="process" class="section steps">
+        <div class="section-inner">
+            <div class="section-header">
+                <span class="section-label">How It Works</span>
+                <h2 class="section-title">Our Simple &amp; <em>Smart Process</em></h2>
+                <p class="section-subtitle">No technical jargon. Just tell me what's slowing you down and I'll handle the rest.</p>
+            </div>
+
+            <div class="process-tabs-wrapper">
+                <div class="process-tab-bar">
+                    <button class="process-tab active" data-step="0">STEP 1</button>
+                    <button class="process-tab" data-step="1">STEP 2</button>
+                    <button class="process-tab" data-step="2">STEP 3</button>
+                </div>
+
+                <div class="process-panel-container">
+
+                    <!-- Step 1 -->
+                    <div class="process-panel active" data-step="0">
+                        <div class="process-visual">
+                            <div class="mock-row">
+                                <div class="mock-card">
+                                    <div class="mock-card-label">Customers</div>
+                                    <div class="mock-card-value">-32%</div>
+                                    <div class="mock-sparkline"></div>
+                                </div>
+                                <div class="mock-card">
+                                    <div class="mock-card-label">Cost Management</div>
+                                    <div class="mock-card-value">-54%</div>
+                                    <div class="mock-sparkline"></div>
+                                </div>
+                            </div>
+                            <div class="mock-list-card">
+                                <div class="mock-list-title">Weakest Systems</div>
+                                <div class="mock-bar-row">
+                                    <div class="mock-bar-label"><span>Marketing &amp; Ads</span><span>32% Score</span></div>
+                                    <div class="mock-bar-track"><div class="mock-bar-fill" style="width:32%"></div></div>
+                                </div>
+                                <div class="mock-bar-row">
+                                    <div class="mock-bar-label"><span>AI Automation</span><span>14% Score</span></div>
+                                    <div class="mock-bar-track"><div class="mock-bar-fill" style="width:14%"></div></div>
+                                </div>
+                                <div class="mock-bar-row">
+                                    <div class="mock-bar-label"><span>Money &amp; Finance</span><span>44% Score</span></div>
+                                    <div class="mock-bar-track"><div class="mock-bar-fill" style="width:44%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="process-info">
+                            <div class="process-step-num">01</div>
+                            <h3>Discover &amp; Analyze</h3>
+                            <p>A quick chat about what's eating up your hours. I audit your workflows and map out exactly where time is being lost — no jargon, just clarity on what to fix first.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="process-panel" data-step="1">
+                        <div class="process-visual">
+                            <div class="mock-chart-card">
+                                <div class="mock-card-label">Activity</div>
+                                <div class="mock-chart-bars">
+                                    <div class="mock-bar-col" style="height:40%"></div>
+                                    <div class="mock-bar-col" style="height:65%"></div>
+                                    <div class="mock-bar-col" style="height:50%"></div>
+                                    <div class="mock-bar-col" style="height:80%"></div>
+                                    <div class="mock-bar-col" style="height:60%"></div>
+                                    <div class="mock-bar-col" style="height:90%"></div>
+                                    <div class="mock-bar-col" style="height:70%"></div>
+                                    <div class="mock-bar-col" style="height:100%"></div>
+                                </div>
+                            </div>
+                            <div class="mock-code-card">
+                                <div class="mock-code-line mock-code-comment">// Build &amp; Implement →</div>
+                                <div class="mock-code-line mock-code-var">&nbsp;</div>
+                                <div class="mock-code-line"><span class="mock-code-keyword">async function </span><span class="mock-code-fn">generateResponse</span><span class="mock-code-var">(prompt) {</span></div>
+                                <div class="mock-code-line"><span class="mock-code-var">&nbsp; const response = await </span><span class="mock-code-fn">fetch</span><span class="mock-code-var">(</span><span class="mock-code-string">'https://api.open…'</span><span class="mock-code-var">, {</span></div>
+                                <div class="mock-code-line"><span class="mock-code-var">&nbsp;&nbsp;&nbsp; method: </span><span class="mock-code-string">'POST'</span><span class="mock-code-var">,</span></div>
+                                <div class="mock-code-line"><span class="mock-code-var">&nbsp;&nbsp;&nbsp; headers: {</span></div>
+                                <div class="mock-code-line"><span class="mock-code-string">&nbsp;&nbsp;&nbsp;&nbsp; 'Content-Type': 'application/json'</span><span class="mock-code-var">,</span></div>
+                                <div class="mock-code-line"><span class="mock-code-string">&nbsp;&nbsp;&nbsp;&nbsp; 'Authorization': 'Bearer YOUR_API_KEY'</span></div>
+                                <div class="mock-code-line"><span class="mock-code-var">&nbsp;&nbsp;&nbsp; },</span></div>
+                                <div class="mock-code-line"><span class="mock-code-var">&nbsp;&nbsp;&nbsp; body: </span><span class="mock-code-fn">JSON.stringify</span><span class="mock-code-var">({</span></div>
+                                <div class="mock-code-line"><span class="mock-code-var">&nbsp;&nbsp;&nbsp;&nbsp; model: </span><span class="mock-code-string">'gpt-4'</span><span class="mock-code-var">,</span></div>
+                            </div>
+                        </div>
+                        <div class="process-info">
+                            <div class="process-step-num">02</div>
+                            <h3>Design &amp; Implement</h3>
+                            <p>I build a custom workflow tailored to your business using tools you already have. You see a live demo before anything goes live — no surprises.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="process-panel" data-step="2">
+                        <div class="process-visual">
+                            <div class="mock-area-chart">
+                                <div class="mock-card-label">Growth &amp; Efficiency Driven by AI</div>
+                                <svg class="mock-area-svg" viewBox="0 0 200 70" preserveAspectRatio="none">
+                                    <defs>
+                                        <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0%" stop-color="#22c55e" stop-opacity="0.3"/>
+                                            <stop offset="100%" stop-color="#22c55e" stop-opacity="0"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <path d="M0,60 C30,55 50,40 80,30 S130,10 200,5 L200,70 L0,70 Z" fill="url(#areaGrad)"/>
+                                    <path d="M0,60 C30,55 50,40 80,30 S130,10 200,5" fill="none" stroke="#22c55e" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <div class="mock-list-card">
+                                <div class="mock-list-title">Growth &amp; Efficiency Scores</div>
+                                <div class="mock-bar-row">
+                                    <div class="mock-bar-label"><span>Marketing &amp; Ads</span><span>84% Score</span></div>
+                                    <div class="mock-bar-track"><div class="mock-bar-fill" style="width:84%"></div></div>
+                                </div>
+                                <div class="mock-bar-row">
+                                    <div class="mock-bar-label"><span>AI Automation</span><span>94% Score</span></div>
+                                    <div class="mock-bar-track"><div class="mock-bar-fill" style="width:94%"></div></div>
+                                </div>
+                                <div class="mock-bar-row">
+                                    <div class="mock-bar-label"><span>Money &amp; Finance</span><span>88% Score</span></div>
+                                    <div class="mock-bar-track"><div class="mock-bar-fill" style="width:88%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="process-info">
+                            <div class="process-step-num">03</div>
+                            <h3>Optimize &amp; Scale</h3>
+                            <p>Your system runs on autopilot. I monitor performance, make adjustments, and ensure everything keeps running smoothly as your business grows.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section">
+        <div class="section-inner">
+            <div class="section-header">
+                <span class="section-label">About Me</span>
+                <h2 class="section-title">Aden Ang</h2>
+            
+            </div>
+            <div class="about-content">
+                <div class="about-photo">
+                    <img src="photo.jpeg" alt="Aden Ang">
+                </div>
+                <div class="about-text">
+                    <p>Hi! I'm Aden Ang, a Banking & Finance student in Singapore. What started as a competition project in financial modelling turned into a passion for building systems that scale. Now, I help businesses automate the tedious work that eats up their day; quotations, customer follow-ups, reporting. If it's repetitive, I can make it run itself. Less manual work, fewer unnecessary costs, more time for what actually grows your business.</p>
+                    <p>I work with plumbers, electricians, construction firms, real estate agents, F&B businesses, digital agencies, and more. If it's repetitive and it's eating your time, I can probably automate it.</p>
+                    <div class="stats-grid">
+                        <div class="stat">
+                            <div class="stat-value">40+</div>
+                            <div class="stat-label">Projects Delivered</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">100%</div>
+                            <div class="stat-label">Client Satisfaction</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">SG</div>
+                            <div class="stat-label">Based in Singapore</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">24/7</div>
+                            <div class="stat-label">Systems Run Non-Stop</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="section">
+        <div class="section-inner">
+            <div class="section-header">
+                <span class="section-label">Testimonials</span>
+                <h2 class="section-title">What my clients say</h2>
+            </div>
+            <div class="testimonials-grid">
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-client">
+                            <span class="testimonial-name">David Tan</span>
+                            <span class="testimonial-business">Real Estate Agent</span>
+                        </div>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <div class="testimonial-service">Proposal & follow-up automation</div>
+                    <div class="testimonial-text">
+                        <p>I was skeptical at first — when my colleague told me it was an 18 year old, I almost said no. But I gave it a shot because the referral was strong and I really needed a solution.</p>
+                        <p>Aden turned around the whole thing in a week. I was spending close to two hours every evening on proposals and follow-ups, and now that entire process just runs itself. I review, I approve, I move on. What really impressed me was how little I had to explain — he came in, understood the workflow, and got it done. Age really doesn't matter when the results are this clear.</p>
+                    </div>
+                    <span class="testimonial-highlight">~2 hours saved daily</span>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-client">
+                            <span class="testimonial-name">Priya Sharma</span>
+                            <span class="testimonial-business">Tuition Centre Owner</span>
+                        </div>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <div class="testimonial-service">Lead response & trial booking automation</div>
+                    <div class="testimonial-text">
+                        <p>Parents enquire at all hours — evenings, weekends, past midnight — and I was missing so many because I physically couldn't keep up. Aden built something that handles the entire first interaction on my behalf, qualifies the enquiry, and locks in a trial slot without me touching anything.</p>
+                        <p>I now wake up to a full schedule instead of a backlog of messages I've already lost. The improvement in trial bookings was almost immediate. Honestly one of the smartest hires I've made for the business.</p>
+                    </div>
+                    <span class="testimonial-highlight">2x more trial bookings</span>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-client">
+                            <span class="testimonial-name">Marcus Lim</span>
+                            <span class="testimonial-business">Plumbing Company</span>
+                        </div>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <div class="testimonial-service">Job dispatch & customer confirmation automation</div>
+                    <div class="testimonial-text">
+                        <p>My wife found Aden online and I was honestly not convinced. We'd had bad experiences with freelancers before who overpromised and disappeared. But he came down, sat with us, understood how we actually run jobs on the ground, and delivered something that fits the way we work — not some generic template.</p>
+                        <p>Missed appointments are basically gone. Customers get confirmations automatically and the coordination that used to eat up my mornings just happens in the background now. I've already passed his contact to two contractor friends because the results speak for themselves.</p>
+                    </div>
+                    <span class="testimonial-highlight">Almost no missed appointments since</span>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-client">
+                            <span class="testimonial-name">Ahmed Hassan</span>
+                            <span class="testimonial-business">F&B Owner — Noodle Shop</span>
+                        </div>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <div class="testimonial-service">Daily sales reporting automation</div>
+                    <div class="testimonial-text">
+                        <p>Before Aden, I was going through receipts manually every Sunday night just to understand how the week went. Half the time I'd miss things or the numbers wouldn't add up and I'd have to redo it. Now I get a clean summary every morning without lifting a finger — what sold, what's low, what needs ordering.</p>
+                        <p>He's young but he grasped how a hawker business actually runs faster than consultants twice his age I've spoken to. Very sharp, very responsive on WhatsApp, and he didn't try to oversell me on things I didn't need. That alone made me trust him.</p>
+                    </div>
+                    <span class="testimonial-highlight">4 hours saved per week</span>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-client">
+                            <span class="testimonial-name">Jennifer Teo</span>
+                            <span class="testimonial-business">Digital Marketing Agency</span>
+                        </div>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <div class="testimonial-service">Client reporting automation</div>
+                    <div class="testimonial-text">
+                        <p>The first week of every month used to be a write-off. My team was pulling screenshots from ad platforms, formatting slides, chasing numbers across spreadsheets — and none of that is billable work. It was burning us out and we were falling behind on actual client deliverables because of it.</p>
+                        <p>Aden fixed that. Reports now go out automatically on the first without anyone touching them. My team's capacity freed up significantly and the quality of our client communication actually improved because we stopped rushing. Clean work, fast delivery, no hand-holding needed.</p>
+                    </div>
+                    <span class="testimonial-highlight">Saved 40 hours/month</span>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-client">
+                            <span class="testimonial-name">Nurul Aisyah</span>
+                            <span class="testimonial-business">Home-Based Bakery</span>
+                        </div>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <div class="testimonial-service">Order management & scheduling automation</div>
+                    <div class="testimonial-text">
+                        <p>Aden is a very hardworking and sharp person despite his age. He grasped very quickly how he could help cut down the problems in my work process. The automations he built didn't just make peak seasons like Hari Raya easier to manage — they genuinely changed how I handle orders day to day. No more missed confirmations, no more manual tracking across DMs and messages.</p>
+                        <p>He provides honest work with a very positive attitude and never made me feel like I was asking too much. I'd recommend him to any home business owner who's still doing everything manually.</p>
+                    </div>
+                    <span class="testimonial-highlight">Zero missed orders</span>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-client">
+                            <span class="testimonial-name">Jason Ong</span>
+                            <span class="testimonial-business">Car Workshop</span>
+                        </div>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <div class="testimonial-service">Booking & service reminder automation</div>
+                    <div class="testimonial-text">
+                        <p>Really happy with the way this project was handled from start to finish. I gave Aden a brief description of the problem and he came back with a solution without me needing to spell out every detail. He has this "leave it to me" attitude that is genuinely rare at any age, let alone 18.</p>
+                        <p>No-shows have dropped significantly since the system went live, and my team's time is no longer eaten up managing the schedule manually. He didn't just build something that works — he gave us back focus. Very steady ROI, both in time and money. Would work with him again without hesitation.</p>
+                    </div>
+                    <span class="testimonial-highlight">No-shows nearly eliminated</span>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-client">
+                            <span class="testimonial-name">Kenneth Goh</span>
+                            <span class="testimonial-business">Electrical Contractor</span>
+                        </div>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <div class="testimonial-service">Quotation automation</div>
+                    <div class="testimonial-text">
+                        <p>What stood out immediately was how quickly Aden got up to speed on the way we actually run jobs. No lengthy briefings, no back and forth across WhatsApp — he asked the right questions from day one and was clearly thinking about the outcome, not just the build.</p>
+                        <p>The results have been real and measurable. We're responding to clients faster, winning more jobs because we're not the last to send a quote, and my admin load has dropped significantly. I told my business partner — this kid is 18 and he delivered what a $50k enterprise software couldn't. Don't judge by the age. Judge by the work.</p>
+                    </div>
+                    <span class="testimonial-highlight">5x faster quoting</span>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-client">
+                            <span class="testimonial-name">Victor Ong</span>
+                            <span class="testimonial-business">Corporate Cleaning Services</span>
+                        </div>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <div class="testimonial-service">Operations & scheduling automation</div>
+                    <div class="testimonial-text">
+                        <p>I was spending close to a third of my day just coordinating — assigning jobs, sending schedules, confirming bookings. It was exhausting and it was pulling me away from actually growing the business. Aden fixed a problem I had been putting off for years because I never knew where to start.</p>
+                        <p>He was patient, walked me through everything clearly, and never made me feel lost even though I'm not a tech person. Now that same coordination takes maybe 20 minutes a day. He's younger than some of my workers but his thinking is sharper than most people I've hired. To any business owner reading this — just try him. You won't regret it.</p>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-client">
+                            <span class="testimonial-name">Michelle Tan</span>
+                            <span class="testimonial-business">Wedding Planning</span>
+                        </div>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <div class="testimonial-service">Client communication automation</div>
+                    <div class="testimonial-text">
+                        <p>Wedding planning is one of the most communication-heavy businesses you can run — every couple has questions, every detail needs updating, and the messages never stop. I was drowning. Aden came in, understood the chaos quickly without me needing to over-explain, and built something that gave my clients the transparency they needed without it all landing on me.</p>
+                        <p>I went from 50+ client messages a day down to a fraction of that. My couples are actually happier because they feel more informed, and I'm less stressed because I'm not firefighting all day. Genuinely one of the best decisions I made for this business.</p>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-client">
+                            <span class="testimonial-name">Thomas Chan</span>
+                            <span class="testimonial-business">Logistics Company</span>
+                        </div>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <div class="testimonial-service">Customer update automation</div>
+                    <div class="testimonial-text">
+                        <p>Aden identified the root cause of our problem quickly — customers had no visibility into their deliveries, so they called our office constantly. My team was spending a huge chunk of their day just answering "where is my order" and it was unsustainable.</p>
+                        <p>He fixed it cleanly and efficiently, and the drop in inbound calls was almost immediate. My office team can now focus on actual operations instead of being a call centre. What also impressed me was how smoothly the whole engagement ran — clear communication, no delays, delivered as promised. That's all I ask for.</p>
+                    </div>
+                    <span class="testimonial-highlight">80% fewer inbound calls</span>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-client">
+                            <span class="testimonial-name">Ryan Koh</span>
+                            <span class="testimonial-business">E-commerce & Social Media Agency</span>
+                        </div>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <div class="testimonial-service">Reporting & client workflow automation</div>
+                    <div class="testimonial-text">
+                        <p>We were losing too much time on internal admin — compiling data, formatting reports, chasing clients for approvals. None of that was moving the needle for our clients, but it was eating into the hours that should have gone into actual strategy and content.</p>
+                        <p>Aden came in, understood the agency workflow fast, and built something that just runs in the background. Our turnaround time on deliverables improved, our clients noticed the difference, and my team isn't burning out on grunt work anymore. The ROI was clear within the first month. I didn't expect that level of thinking from someone his age — very impressed.</p>
+                    </div>
+                    <span class="testimonial-highlight">Reclaimed 30+ hours/month</span>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-client">
+                            <span class="testimonial-name">Dr. Grace Lim</span>
+                            <span class="testimonial-business">GP Clinic</span>
+                        </div>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <div class="testimonial-service">Patient appointment & follow-up automation</div>
+                    <div class="testimonial-text">
+                        <p>Running a clinic means my front desk is constantly pulled in multiple directions — managing walk-ins, answering calls, handling paperwork. Appointment no-shows and missed follow-ups were a real problem and my staff were overwhelmed.</p>
+                        <p>Aden came in, listened carefully, and built something that works quietly in the background without disrupting our existing workflow. Reminders go out automatically, follow-ups are handled, and my staff can focus on patients instead of admin. I was cautious at first given his age but the professionalism and the results removed any doubt. Would recommend him to any clinic looking to free up their team.</p>
+                    </div>
+                    <span class="testimonial-highlight">No-shows down significantly</span>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-client">
+                            <span class="testimonial-name">Kelvin Poh</span>
+                            <span class="testimonial-business">Aircon Servicing</span>
+                        </div>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <div class="testimonial-service">Recurring customer retention automation</div>
+                    <div class="testimonial-text">
+                        <p>The nature of my business is repeat — customers need servicing every few months. The problem was they'd forget, and by the time they remembered they'd already called someone else. I was losing loyal customers not because of poor service but simply because nobody followed up.</p>
+                        <p>Aden fixed that quietly and without any fuss. Since he set things up, repeat bookings have gone up considerably and I barely think about it anymore. He understood the business logic immediately, didn't overcomplicate anything, and the results were measurable within weeks. Simple problem, proper solution. I genuinely wish I had done this years ago.</p>
+                    </div>
+                    <span class="testimonial-highlight">60% repeat booking rate</span>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-client">
+                            <span class="testimonial-name">Reuben Lim</span>
+                            <span class="testimonial-business">Bubble Tea Chain (3 outlets)</span>
+                        </div>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <div class="testimonial-service">Multi-outlet visibility & reporting automation</div>
+                    <div class="testimonial-text">
+                        <p>I'm 34, been running F&B for 8 years, and Aden grasped my operational pain points faster than consultants I've paid serious money to. What stood out was that he didn't just ask what I wanted built — he asked how the business actually worked and thought through the problem properly before jumping into solutions. That's rare.</p>
+                        <p>The visibility I have now across my outlets has genuinely changed how I make decisions day to day. I'm no longer flying blind between locations. If you're a F&B owner still managing things manually or outlet by outlet, just reach out to him. You'll wish you did it sooner.</p>
+                    </div>
+                    <span class="testimonial-highlight">All 3 outlets in one view</span>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-client">
+                            <span class="testimonial-name">Dr. Shaun Teo</span>
+                            <span class="testimonial-business">Aesthetic & Wellness Clinic</span>
+                        </div>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <div class="testimonial-service">Patient communication & retention automation</div>
+                    <div class="testimonial-text">
+                        <p>In aesthetics, post-treatment follow-up and patient retention are everything. We were doing all of it manually — my receptionist was tracking who needed a check-in, who had a package expiring, who hadn't been back in 3 months. Things were slipping and we were losing patients we shouldn't have been losing.</p>
+                        <p>Aden built something that handles all of it systematically. The right message goes to the right patient at the right time, and my staff can focus on delivering a great in-clinic experience instead of managing a spreadsheet. Patient retention has improved noticeably. He was professional throughout, communicated clearly, and delivered ahead of schedule. Very few people operate like that regardless of age.</p>
+                    </div>
+                    <span class="testimonial-highlight">Improved patient retention</span>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-client">
+                            <span class="testimonial-name">Angela Sim</span>
+                            <span class="testimonial-business">Music School</span>
+                        </div>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <div class="testimonial-service">Scheduling & teacher coordination automation</div>
+                    <div class="testimonial-text">
+                        <p>Managing 15 teachers across 6 rooms with students who all have different preferred timeslots was genuinely affecting my sleep. I'd lie in bed wondering if I'd double booked a room or missed a rescheduling request. The mental load of running the school was as exhausting as the work itself.</p>
+                        <p>Aden solved that. He was methodical, communicated well at every stage, and delivered something that just works without me having to babysit it. I found out later he's still a student himself and I was genuinely shook — at his age I was just worried about exams. Very mature, very professional, and very capable. Don't think twice about working with him.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / CTA -->
+    <section class="section cta">
+        <div class="cta-inner">
+            <span class="section-label">Get Started</span>
+            <h2>Ready to get hours back in your week?</h2>
+            <p>Drop me a message on WhatsApp. Tell me what's taking too long — I'll let you know if I can help.</p>
+            <div class="cta-buttons">
+                <a href="https://wa.me/6589308246?text=Hi%2C%20I%27m%20interested%20in%20automating%20my%20business%20workflows" target="_blank" rel="noopener" class="btn-primary">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    WhatsApp Me Now
+                </a>
+                <a href="https://www.linkedin.com/in/aden-ang-371417362" target="_blank" rel="noopener" class="btn-linkedin">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    Connect on LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <p class="footer-text">&copy; 2026 Alpha Automations. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="https://www.linkedin.com/in/aden-ang-371417362" target="_blank" rel="noopener" class="footer-link">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    LinkedIn
+                </a>
+                <a href="https://wa.me/6589308246?text=Hi%2C%20I%27m%20interested%20in%20automating%20my%20business%20workflows" target="_blank" rel="noopener" class="footer-link">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    WhatsApp
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/6589308246?text=Hi%2C%20I%27m%20interested%20in%20automating%20my%20business%20workflows" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Chat on WhatsApp">
+        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+
+    <script>
+    (function() {
+        const slider = document.getElementById('portfolioSlider');
+        const prevBtn = document.getElementById('sliderPrev');
+        const nextBtn = document.getElementById('sliderNext');
+        const dotsContainer = document.getElementById('sliderDots');
+        const cards = slider.querySelectorAll('.project-card');
+        const total = cards.length;
+        var currentIndex = 0;
+
+        function getPerView() {
+            return window.innerWidth >= 640 ? 3 : 1;
+        }
+
+        function getMaxIndex() {
+            return total - getPerView();
+        }
+
+        function getCardWidth() {
+            return cards[0].offsetWidth + 24;
+        }
+
+        function goTo(index) {
+            currentIndex = Math.max(0, Math.min(index, getMaxIndex()));
+            slider.scrollTo({ left: currentIndex * getCardWidth(), behavior: 'smooth' });
+            updateDots();
+        }
+
+        function buildDots() {
+            dotsContainer.innerHTML = '';
+            var numDots = getMaxIndex() + 1;
+            for (var i = 0; i < numDots; i++) {
+                var dot = document.createElement('button');
+                dot.className = 'slider-dot' + (i === currentIndex ? ' active' : '');
+                dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+                (function(idx) { dot.addEventListener('click', function() { goTo(idx); }); })(i);
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        function updateDots() {
+            dotsContainer.querySelectorAll('.slider-dot').forEach(function(dot, i) {
+                dot.className = 'slider-dot' + (i === currentIndex ? ' active' : '');
+            });
+        }
+
+        prevBtn.addEventListener('click', function() { goTo(currentIndex - 1); });
+        nextBtn.addEventListener('click', function() { goTo(currentIndex + 1); });
+
+        // Process tabs
+        var processTabs = document.querySelectorAll('.process-tab');
+        var processPanels = document.querySelectorAll('.process-panel');
+        processTabs.forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                var idx = this.dataset.step;
+                processTabs.forEach(function(t) { t.classList.remove('active'); });
+                processPanels.forEach(function(p) { p.classList.remove('active'); });
+                this.classList.add('active');
+                document.querySelector('.process-panel[data-step="' + idx + '"]').classList.add('active');
+            });
+        });
+
+        window.addEventListener('resize', function() {
+            currentIndex = Math.min(currentIndex, getMaxIndex());
+            buildDots();
+            slider.scrollTo({ left: currentIndex * getCardWidth() });
+        });
+        buildDots();
+    })();
+    </script>
+
+</body>
+</html>
