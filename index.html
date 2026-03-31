@@ -415,6 +415,7 @@
             scrollbar-width: none;
             padding-bottom: 8px;
             overscroll-behavior-x: contain;
+            touch-action: pan-y;
         }
 
         .portfolio-grid::-webkit-scrollbar { display: none; }
@@ -1887,12 +1888,10 @@
         function cardW() { return cards[0].offsetWidth + 24; }
 
         function updateFocus() {
-            var perView = getPerView();
-            cards.forEach(function(card, i) {
-                var active = i >= idx && i < idx + perView;
-                card.style.opacity = active ? '1' : '0.22';
-                card.style.transform = active ? 'scale(1)' : 'scale(0.93)';
-                card.style.borderColor = active ? '' : 'transparent';
+            cards.forEach(function(card) {
+                card.style.opacity = '1';
+                card.style.transform = '';
+                card.style.borderColor = '';
             });
         }
 
@@ -1919,6 +1918,21 @@
 
         prevBtn.addEventListener('click', function() { goTo(idx - 1); });
         nextBtn.addEventListener('click', function() { goTo(idx + 1); });
+
+        var scrollTimer;
+        slider.addEventListener('scroll', function() {
+            clearTimeout(scrollTimer);
+            scrollTimer = setTimeout(function() {
+                var newIdx = Math.round(slider.scrollLeft / cardW());
+                newIdx = Math.max(0, Math.min(newIdx, getMaxIndex()));
+                if (newIdx !== idx) {
+                    idx = newIdx;
+                    dotsEl.querySelectorAll('.slider-dot').forEach(function(d, j) {
+                        d.className = 'slider-dot' + (j === idx ? ' active' : '');
+                    });
+                }
+            }, 80);
+        });
 
         window.addEventListener('resize', function() {
             idx = Math.min(idx, getMaxIndex());
