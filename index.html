@@ -414,6 +414,7 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
             padding-bottom: 8px;
+            overscroll-behavior-x: contain;
         }
 
         .portfolio-grid::-webkit-scrollbar { display: none; }
@@ -423,7 +424,7 @@
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
             padding: 32px;
-            transition: all 0.3s;
+            transition: opacity 0.45s cubic-bezier(0.22,1,0.36,1), transform 0.45s cubic-bezier(0.22,1,0.36,1), border-color 0.2s, box-shadow 0.3s, background 0.2s;
             min-width: 100%;
             scroll-snap-align: start;
             flex: 0 0 100%;
@@ -464,6 +465,8 @@
 
         #sliderPrev { left: -22px; }
         #sliderNext { right: -22px; }
+        #testimPrev { left: -22px; }
+        #testimNext { right: -22px; }
 
         .slider-dots {
             display: flex;
@@ -685,21 +688,35 @@
         }
 
         /* Testimonials */
-        .testimonials-grid {
-            columns: 1;
-            gap: 20px;
-            max-width: var(--max-width);
-            margin: 0 auto;
+        /* Testimonials unified slider */
+        .testimonials-slider {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            overscroll-behavior-x: contain;
         }
+        .testimonials-slider::-webkit-scrollbar { display: none; }
 
         .testimonial-card {
-            break-inside: avoid;
+            flex: 0 0 85vw;
+            scroll-snap-align: start;
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
             padding: 28px;
-            margin-bottom: 20px;
-            transition: border-color 0.2s;
+            box-sizing: border-box;
+            transition: opacity 0.4s cubic-bezier(0.22,1,0.36,1), transform 0.4s cubic-bezier(0.22,1,0.36,1), border-color 0.2s;
+        }
+
+        @media (min-width: 640px) {
+            .testimonial-card {
+                flex: 0 0 calc((100% - 48px) / 3);
+                min-width: auto;
+            }
         }
 
         .testimonial-card:hover {
@@ -771,40 +788,6 @@
             padding: 6px 12px;
         }
 
-        @media (max-width: 639px) {
-            .testimonials-grid {
-                display: flex;
-                flex-direction: row;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                -ms-overflow-style: none;
-                scrollbar-width: none;
-                gap: 16px;
-                padding-bottom: 12px;
-                columns: unset;
-            }
-
-            .testimonials-grid::-webkit-scrollbar { display: none; }
-
-            .testimonial-card {
-                flex: 0 0 82vw;
-                scroll-snap-align: start;
-                margin-bottom: 0;
-                break-inside: unset;
-            }
-        }
-
-        @media (min-width: 640px) {
-            .testimonials-grid {
-                columns: 2;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .testimonials-grid {
-                columns: 3;
-            }
-        }
 
         /* CTA / Contact */
         .cta {
@@ -997,11 +980,11 @@
 
         /* ── Enhanced hover lifts ── */
         .testimonial-card {
-            transition: border-color 0.2s, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s;
+            transition: opacity 0.45s cubic-bezier(0.22,1,0.36,1), transform 0.45s cubic-bezier(0.22,1,0.36,1), border-color 0.2s, box-shadow 0.3s;
         }
         .testimonial-card:hover {
-            transform: translateY(-4px);
             box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+            border-color: var(--border-light);
         }
         .project-card {
             transition: background 0.2s, border-color 0.2s, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s;
@@ -1406,28 +1389,6 @@
                         30% more quotes converted without extra legwork
                     </div>
                 </div>
-                <!-- Card 5: Client Progress Communication System -->
-                <div class="project-card">
-                    <div class="project-icon green">
-                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-                    </div>
-                    <h3>Client Progress Communication System</h3>
-                    <p class="project-client">Construction, Renovation &amp; Logistics Companies</p>
-                    <div class="project-details">
-                        <div class="project-detail">
-                            <span class="project-detail-label">Problem</span>
-                            <span class="project-detail-text">Clients chase your team daily for updates. Staff waste hours on status calls instead of working — and clients still feel in the dark</span>
-                        </div>
-                        <div class="project-detail">
-                            <span class="project-detail-label">Solution</span>
-                            <span class="project-detail-text">Automatically notifies clients via WhatsApp or SMS each time their job hits a milestone — with photos, ETAs, and next steps included</span>
-                        </div>
-                    </div>
-                    <div class="project-result">
-                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
-                        70% fewer inbound status calls — clients who actually feel informed
-                    </div>
-                </div>
                 <!-- Card 6: Field Operations & Dispatch System -->
                 <div class="project-card">
                     <div class="project-icon purple">
@@ -1644,277 +1605,94 @@
                 <span class="section-label">Testimonials</span>
                 <h2 class="section-title">Client Success Stories</h2>
             </div>
-            <div class="testimonials-grid">
+            <div class="portfolio-slider-wrapper">
+                <div class="testimonials-slider" id="testimonialsSlider">
 
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <div class="testimonial-client">
-                            <span class="testimonial-name">David Tan</span>
-                            <span class="testimonial-business">Real Estate Agent</span>
-                        </div>
-                        <div class="testimonial-stars">★★★★★</div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-header"><div class="testimonial-client"><span class="testimonial-name">David Tan</span><span class="testimonial-business">Real Estate Agent</span></div><div class="testimonial-stars">★★★★★</div></div>
+                        <div class="testimonial-service">Proposal &amp; follow-up automation</div>
+                        <div class="testimonial-text"><p>I was skeptical at first — when my colleague told me it was an 18 year old, I almost said no. But Aden turned the whole thing around in a week. I was spending close to two hours every evening on proposals and now the process just runs itself. Age really doesn't matter when the results are this clear.</p></div>
+                        <span class="testimonial-highlight">~2 hours saved daily</span>
                     </div>
-                    <div class="testimonial-service">Proposal & follow-up automation</div>
-                    <div class="testimonial-text">
-                        <p>I was skeptical at first — when my colleague told me it was an 18 year old, I almost said no. But I gave it a shot because the referral was strong and I really needed a solution.</p>
-                        <p>Aden turned around the whole thing in a week. I was spending close to two hours every evening on proposals and follow-ups, and now that entire process just runs itself. I review, I approve, I move on. What really impressed me was how little I had to explain — he came in, understood the workflow, and got it done. Age really doesn't matter when the results are this clear.</p>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-header"><div class="testimonial-client"><span class="testimonial-name">Priya Sharma</span><span class="testimonial-business">Tuition Centre Owner</span></div><div class="testimonial-stars">★★★★★</div></div>
+                        <div class="testimonial-service">Lead response &amp; trial booking automation</div>
+                        <div class="testimonial-text"><p>Parents enquire at all hours and I was missing so many because I couldn't keep up. Aden built something that handles the entire first interaction, qualifies the enquiry, and locks in a trial slot without me touching anything. I now wake up to a full schedule.</p></div>
+                        <span class="testimonial-highlight">2x more trial bookings</span>
                     </div>
-                    <span class="testimonial-highlight">~2 hours saved daily</span>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-header"><div class="testimonial-client"><span class="testimonial-name">Marcus Lim</span><span class="testimonial-business">Plumbing Company</span></div><div class="testimonial-stars">★★★★★</div></div>
+                        <div class="testimonial-service">Job dispatch &amp; confirmation automation</div>
+                        <div class="testimonial-text"><p>He sat with us, understood how we actually run jobs on the ground, and delivered something that fits the way we work. Missed appointments are basically gone and the coordination that used to eat up my mornings just happens in the background. Passed his contact to two contractor friends already.</p></div>
+                        <span class="testimonial-highlight">Almost no missed appointments</span>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-header"><div class="testimonial-client"><span class="testimonial-name">Jason Ong</span><span class="testimonial-business">Car Workshop</span></div><div class="testimonial-stars">★★★★★</div></div>
+                        <div class="testimonial-service">Booking &amp; service reminder automation</div>
+                        <div class="testimonial-text"><p>He has this "leave it to me" attitude that is genuinely rare at any age, let alone 18. No-shows have dropped significantly and my team's time is no longer eaten up managing the schedule manually. Very steady ROI in both time and money.</p></div>
+                        <span class="testimonial-highlight">No-shows nearly eliminated</span>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-header"><div class="testimonial-client"><span class="testimonial-name">Jennifer Teo</span><span class="testimonial-business">Digital Marketing Agency</span></div><div class="testimonial-stars">★★★★★</div></div>
+                        <div class="testimonial-service">Client reporting automation</div>
+                        <div class="testimonial-text"><p>The first week of every month used to be a write-off. Aden fixed that. Reports now go out automatically without anyone touching them. My team's capacity freed up significantly and our client communication actually improved because we stopped rushing.</p></div>
+                        <span class="testimonial-highlight">Saved 40 hours/month</span>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-header"><div class="testimonial-client"><span class="testimonial-name">Nurul Aisyah</span><span class="testimonial-business">Home-Based Bakery</span></div><div class="testimonial-stars">★★★★★</div></div>
+                        <div class="testimonial-service">Order management automation</div>
+                        <div class="testimonial-text"><p>The automations didn't just make peak seasons like Hari Raya easier — they changed how I handle orders day to day. No more missed confirmations, no more manual tracking across DMs. Honest work, positive attitude, would recommend to any home business owner.</p></div>
+                        <span class="testimonial-highlight">Zero missed orders</span>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-header"><div class="testimonial-client"><span class="testimonial-name">Ahmed Hassan</span><span class="testimonial-business">F&amp;B Owner — Noodle Shop</span></div><div class="testimonial-stars">★★★★★</div></div>
+                        <div class="testimonial-service">Daily sales reporting automation</div>
+                        <div class="testimonial-text"><p>Now I get a clean summary every morning — what sold, what's low, what needs ordering. He grasped how a hawker business actually runs faster than consultants twice his age. Very sharp, didn't try to oversell me on things I didn't need.</p></div>
+                        <span class="testimonial-highlight">4 hours saved per week</span>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-header"><div class="testimonial-client"><span class="testimonial-name">Kenneth Goh</span><span class="testimonial-business">Electrical Contractor</span></div><div class="testimonial-stars">★★★★★</div></div>
+                        <div class="testimonial-service">Quotation automation</div>
+                        <div class="testimonial-text"><p>We're responding to clients faster, winning more jobs because we're not the last to send a quote. I told my business partner — this kid is 18 and he delivered what a $50k enterprise software couldn't. Don't judge by the age. Judge by the work.</p></div>
+                        <span class="testimonial-highlight">5x faster quoting</span>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-header"><div class="testimonial-client"><span class="testimonial-name">Victor Ong</span><span class="testimonial-business">Corporate Cleaning Services</span></div><div class="testimonial-stars">★★★★★</div></div>
+                        <div class="testimonial-service">Operations &amp; scheduling automation</div>
+                        <div class="testimonial-text"><p>I was spending close to a third of my day just coordinating jobs. Aden fixed a problem I'd been putting off for years. Now that same coordination takes maybe 20 minutes a day. He's younger than some of my workers but his thinking is sharper than most people I've hired.</p></div>
+                        <span class="testimonial-highlight">Coordination down to 20 min/day</span>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-header"><div class="testimonial-client"><span class="testimonial-name">Michelle Tan</span><span class="testimonial-business">Wedding Planner</span></div><div class="testimonial-stars">★★★★★</div></div>
+                        <div class="testimonial-service">Client communication automation</div>
+                        <div class="testimonial-text"><p>Wedding planning is one of the most communication-heavy businesses you can run. I went from 50+ client messages a day down to a fraction of that. My couples are actually happier because they feel more informed, and I'm less stressed. Genuinely one of the best decisions I made.</p></div>
+                        <span class="testimonial-highlight">50+ messages/day → a fraction</span>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-header"><div class="testimonial-client"><span class="testimonial-name">Thomas Chan</span><span class="testimonial-business">Logistics Company</span></div><div class="testimonial-stars">★★★★★</div></div>
+                        <div class="testimonial-service">Customer update automation</div>
+                        <div class="testimonial-text"><p>Customers had no visibility into their deliveries so they called our office constantly. Aden fixed it cleanly — the drop in inbound calls was almost immediate. Clear communication, no delays, delivered as promised. My office team can now focus on actual operations.</p></div>
+                        <span class="testimonial-highlight">80% fewer inbound calls</span>
+                    </div>
+
                 </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <div class="testimonial-client">
-                            <span class="testimonial-name">Priya Sharma</span>
-                            <span class="testimonial-business">Tuition Centre Owner</span>
-                        </div>
-                        <div class="testimonial-stars">★★★★★</div>
-                    </div>
-                    <div class="testimonial-service">Lead response & trial booking automation</div>
-                    <div class="testimonial-text">
-                        <p>Parents enquire at all hours — evenings, weekends, past midnight — and I was missing so many because I physically couldn't keep up. Aden built something that handles the entire first interaction on my behalf, qualifies the enquiry, and locks in a trial slot without me touching anything.</p>
-                        <p>I now wake up to a full schedule instead of a backlog of messages I've already lost. The improvement in trial bookings was almost immediate. Honestly one of the smartest hires I've made for the business.</p>
-                    </div>
-                    <span class="testimonial-highlight">2x more trial bookings</span>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <div class="testimonial-client">
-                            <span class="testimonial-name">Marcus Lim</span>
-                            <span class="testimonial-business">Plumbing Company</span>
-                        </div>
-                        <div class="testimonial-stars">★★★★★</div>
-                    </div>
-                    <div class="testimonial-service">Job dispatch & customer confirmation automation</div>
-                    <div class="testimonial-text">
-                        <p>My wife found Aden online and I was honestly not convinced. We'd had bad experiences with freelancers before who overpromised and disappeared. But he came down, sat with us, understood how we actually run jobs on the ground, and delivered something that fits the way we work — not some generic template.</p>
-                        <p>Missed appointments are basically gone. Customers get confirmations automatically and the coordination that used to eat up my mornings just happens in the background now. I've already passed his contact to two contractor friends because the results speak for themselves.</p>
-                    </div>
-                    <span class="testimonial-highlight">Almost no missed appointments since</span>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <div class="testimonial-client">
-                            <span class="testimonial-name">Ahmed Hassan</span>
-                            <span class="testimonial-business">F&B Owner — Noodle Shop</span>
-                        </div>
-                        <div class="testimonial-stars">★★★★★</div>
-                    </div>
-                    <div class="testimonial-service">Daily sales reporting automation</div>
-                    <div class="testimonial-text">
-                        <p>Before Aden, I was going through receipts manually every Sunday night just to understand how the week went. Half the time I'd miss things or the numbers wouldn't add up and I'd have to redo it. Now I get a clean summary every morning without lifting a finger — what sold, what's low, what needs ordering.</p>
-                        <p>He's young but he grasped how a hawker business actually runs faster than consultants twice his age I've spoken to. Very sharp, very responsive on WhatsApp, and he didn't try to oversell me on things I didn't need. That alone made me trust him.</p>
-                    </div>
-                    <span class="testimonial-highlight">4 hours saved per week</span>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <div class="testimonial-client">
-                            <span class="testimonial-name">Jennifer Teo</span>
-                            <span class="testimonial-business">Digital Marketing Agency</span>
-                        </div>
-                        <div class="testimonial-stars">★★★★★</div>
-                    </div>
-                    <div class="testimonial-service">Client reporting automation</div>
-                    <div class="testimonial-text">
-                        <p>The first week of every month used to be a write-off. My team was pulling screenshots from ad platforms, formatting slides, chasing numbers across spreadsheets — and none of that is billable work. It was burning us out and we were falling behind on actual client deliverables because of it.</p>
-                        <p>Aden fixed that. Reports now go out automatically on the first without anyone touching them. My team's capacity freed up significantly and the quality of our client communication actually improved because we stopped rushing. Clean work, fast delivery, no hand-holding needed.</p>
-                    </div>
-                    <span class="testimonial-highlight">Saved 40 hours/month</span>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <div class="testimonial-client">
-                            <span class="testimonial-name">Nurul Aisyah</span>
-                            <span class="testimonial-business">Home-Based Bakery</span>
-                        </div>
-                        <div class="testimonial-stars">★★★★★</div>
-                    </div>
-                    <div class="testimonial-service">Order management & scheduling automation</div>
-                    <div class="testimonial-text">
-                        <p>Aden is a very hardworking and sharp person despite his age. He grasped very quickly how he could help cut down the problems in my work process. The automations he built didn't just make peak seasons like Hari Raya easier to manage — they genuinely changed how I handle orders day to day. No more missed confirmations, no more manual tracking across DMs and messages.</p>
-                        <p>He provides honest work with a very positive attitude and never made me feel like I was asking too much. I'd recommend him to any home business owner who's still doing everything manually.</p>
-                    </div>
-                    <span class="testimonial-highlight">Zero missed orders</span>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <div class="testimonial-client">
-                            <span class="testimonial-name">Jason Ong</span>
-                            <span class="testimonial-business">Car Workshop</span>
-                        </div>
-                        <div class="testimonial-stars">★★★★★</div>
-                    </div>
-                    <div class="testimonial-service">Booking & service reminder automation</div>
-                    <div class="testimonial-text">
-                        <p>Really happy with the way this project was handled from start to finish. I gave Aden a brief description of the problem and he came back with a solution without me needing to spell out every detail. He has this "leave it to me" attitude that is genuinely rare at any age, let alone 18.</p>
-                        <p>No-shows have dropped significantly since the system went live, and my team's time is no longer eaten up managing the schedule manually. He didn't just build something that works — he gave us back focus. Very steady ROI, both in time and money. Would work with him again without hesitation.</p>
-                    </div>
-                    <span class="testimonial-highlight">No-shows nearly eliminated</span>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <div class="testimonial-client">
-                            <span class="testimonial-name">Kenneth Goh</span>
-                            <span class="testimonial-business">Electrical Contractor</span>
-                        </div>
-                        <div class="testimonial-stars">★★★★★</div>
-                    </div>
-                    <div class="testimonial-service">Quotation automation</div>
-                    <div class="testimonial-text">
-                        <p>What stood out immediately was how quickly Aden got up to speed on the way we actually run jobs. No lengthy briefings, no back and forth across WhatsApp — he asked the right questions from day one and was clearly thinking about the outcome, not just the build.</p>
-                        <p>The results have been real and measurable. We're responding to clients faster, winning more jobs because we're not the last to send a quote, and my admin load has dropped significantly. I told my business partner — this kid is 18 and he delivered what a $50k enterprise software couldn't. Don't judge by the age. Judge by the work.</p>
-                    </div>
-                    <span class="testimonial-highlight">5x faster quoting</span>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <div class="testimonial-client">
-                            <span class="testimonial-name">Victor Ong</span>
-                            <span class="testimonial-business">Corporate Cleaning Services</span>
-                        </div>
-                        <div class="testimonial-stars">★★★★★</div>
-                    </div>
-                    <div class="testimonial-service">Operations & scheduling automation</div>
-                    <div class="testimonial-text">
-                        <p>I was spending close to a third of my day just coordinating — assigning jobs, sending schedules, confirming bookings. It was exhausting and it was pulling me away from actually growing the business. Aden fixed a problem I had been putting off for years because I never knew where to start.</p>
-                        <p>He was patient, walked me through everything clearly, and never made me feel lost even though I'm not a tech person. Now that same coordination takes maybe 20 minutes a day. He's younger than some of my workers but his thinking is sharper than most people I've hired. To any business owner reading this — just try him. You won't regret it.</p>
-                    </div>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <div class="testimonial-client">
-                            <span class="testimonial-name">Michelle Tan</span>
-                            <span class="testimonial-business">Wedding Planning</span>
-                        </div>
-                        <div class="testimonial-stars">★★★★★</div>
-                    </div>
-                    <div class="testimonial-service">Client communication automation</div>
-                    <div class="testimonial-text">
-                        <p>Wedding planning is one of the most communication-heavy businesses you can run — every couple has questions, every detail needs updating, and the messages never stop. I was drowning. Aden came in, understood the chaos quickly without me needing to over-explain, and built something that gave my clients the transparency they needed without it all landing on me.</p>
-                        <p>I went from 50+ client messages a day down to a fraction of that. My couples are actually happier because they feel more informed, and I'm less stressed because I'm not firefighting all day. Genuinely one of the best decisions I made for this business.</p>
-                    </div>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <div class="testimonial-client">
-                            <span class="testimonial-name">Thomas Chan</span>
-                            <span class="testimonial-business">Logistics Company</span>
-                        </div>
-                        <div class="testimonial-stars">★★★★★</div>
-                    </div>
-                    <div class="testimonial-service">Customer update automation</div>
-                    <div class="testimonial-text">
-                        <p>Aden identified the root cause of our problem quickly — customers had no visibility into their deliveries, so they called our office constantly. My team was spending a huge chunk of their day just answering "where is my order" and it was unsustainable.</p>
-                        <p>He fixed it cleanly and efficiently, and the drop in inbound calls was almost immediate. My office team can now focus on actual operations instead of being a call centre. What also impressed me was how smoothly the whole engagement ran — clear communication, no delays, delivered as promised. That's all I ask for.</p>
-                    </div>
-                    <span class="testimonial-highlight">80% fewer inbound calls</span>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <div class="testimonial-client">
-                            <span class="testimonial-name">Ryan Koh</span>
-                            <span class="testimonial-business">E-commerce & Social Media Agency</span>
-                        </div>
-                        <div class="testimonial-stars">★★★★★</div>
-                    </div>
-                    <div class="testimonial-service">Reporting & client workflow automation</div>
-                    <div class="testimonial-text">
-                        <p>We were losing too much time on internal admin — compiling data, formatting reports, chasing clients for approvals. None of that was moving the needle for our clients, but it was eating into the hours that should have gone into actual strategy and content.</p>
-                        <p>Aden came in, understood the agency workflow fast, and built something that just runs in the background. Our turnaround time on deliverables improved, our clients noticed the difference, and my team isn't burning out on grunt work anymore. The ROI was clear within the first month. I didn't expect that level of thinking from someone his age — very impressed.</p>
-                    </div>
-                    <span class="testimonial-highlight">Reclaimed 30+ hours/month</span>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <div class="testimonial-client">
-                            <span class="testimonial-name">Dr. Grace Lim</span>
-                            <span class="testimonial-business">GP Clinic</span>
-                        </div>
-                        <div class="testimonial-stars">★★★★★</div>
-                    </div>
-                    <div class="testimonial-service">Patient appointment & follow-up automation</div>
-                    <div class="testimonial-text">
-                        <p>Running a clinic means my front desk is constantly pulled in multiple directions — managing walk-ins, answering calls, handling paperwork. Appointment no-shows and missed follow-ups were a real problem and my staff were overwhelmed.</p>
-                        <p>Aden came in, listened carefully, and built something that works quietly in the background without disrupting our existing workflow. Reminders go out automatically, follow-ups are handled, and my staff can focus on patients instead of admin. I was cautious at first given his age but the professionalism and the results removed any doubt. Would recommend him to any clinic looking to free up their team.</p>
-                    </div>
-                    <span class="testimonial-highlight">No-shows down significantly</span>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <div class="testimonial-client">
-                            <span class="testimonial-name">Kelvin Poh</span>
-                            <span class="testimonial-business">Aircon Servicing</span>
-                        </div>
-                        <div class="testimonial-stars">★★★★★</div>
-                    </div>
-                    <div class="testimonial-service">Recurring customer retention automation</div>
-                    <div class="testimonial-text">
-                        <p>The nature of my business is repeat — customers need servicing every few months. The problem was they'd forget, and by the time they remembered they'd already called someone else. I was losing loyal customers not because of poor service but simply because nobody followed up.</p>
-                        <p>Aden fixed that quietly and without any fuss. Since he set things up, repeat bookings have gone up considerably and I barely think about it anymore. He understood the business logic immediately, didn't overcomplicate anything, and the results were measurable within weeks. Simple problem, proper solution. I genuinely wish I had done this years ago.</p>
-                    </div>
-                    <span class="testimonial-highlight">60% repeat booking rate</span>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <div class="testimonial-client">
-                            <span class="testimonial-name">Reuben Lim</span>
-                            <span class="testimonial-business">Bubble Tea Chain (3 outlets)</span>
-                        </div>
-                        <div class="testimonial-stars">★★★★★</div>
-                    </div>
-                    <div class="testimonial-service">Multi-outlet visibility & reporting automation</div>
-                    <div class="testimonial-text">
-                        <p>I'm 34, been running F&B for 8 years, and Aden grasped my operational pain points faster than consultants I've paid serious money to. What stood out was that he didn't just ask what I wanted built — he asked how the business actually worked and thought through the problem properly before jumping into solutions. That's rare.</p>
-                        <p>The visibility I have now across my outlets has genuinely changed how I make decisions day to day. I'm no longer flying blind between locations. If you're a F&B owner still managing things manually or outlet by outlet, just reach out to him. You'll wish you did it sooner.</p>
-                    </div>
-                    <span class="testimonial-highlight">All 3 outlets in one view</span>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <div class="testimonial-client">
-                            <span class="testimonial-name">Dr. Shaun Teo</span>
-                            <span class="testimonial-business">Aesthetic & Wellness Clinic</span>
-                        </div>
-                        <div class="testimonial-stars">★★★★★</div>
-                    </div>
-                    <div class="testimonial-service">Patient communication & retention automation</div>
-                    <div class="testimonial-text">
-                        <p>In aesthetics, post-treatment follow-up and patient retention are everything. We were doing all of it manually — my receptionist was tracking who needed a check-in, who had a package expiring, who hadn't been back in 3 months. Things were slipping and we were losing patients we shouldn't have been losing.</p>
-                        <p>Aden built something that handles all of it systematically. The right message goes to the right patient at the right time, and my staff can focus on delivering a great in-clinic experience instead of managing a spreadsheet. Patient retention has improved noticeably. He was professional throughout, communicated clearly, and delivered ahead of schedule. Very few people operate like that regardless of age.</p>
-                    </div>
-                    <span class="testimonial-highlight">Improved patient retention</span>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <div class="testimonial-client">
-                            <span class="testimonial-name">Angela Sim</span>
-                            <span class="testimonial-business">Music School</span>
-                        </div>
-                        <div class="testimonial-stars">★★★★★</div>
-                    </div>
-                    <div class="testimonial-service">Scheduling & teacher coordination automation</div>
-                    <div class="testimonial-text">
-                        <p>Managing 15 teachers across 6 rooms with students who all have different preferred timeslots was genuinely affecting my sleep. I'd lie in bed wondering if I'd double booked a room or missed a rescheduling request. The mental load of running the school was as exhausting as the work itself.</p>
-                        <p>Aden solved that. He was methodical, communicated well at every stage, and delivered something that just works without me having to babysit it. I found out later he's still a student himself and I was genuinely shook — at his age I was just worried about exams. Very mature, very professional, and very capable. Don't think twice about working with him.</p>
-                    </div>
-                </div>
-
+                <button class="slider-btn" id="testimPrev" aria-label="Previous">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                </button>
+                <button class="slider-btn" id="testimNext" aria-label="Next">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                </button>
+                <div class="slider-dots" id="testimDots"></div>
             </div>
         </div>
     </section>
@@ -1982,10 +1760,25 @@
             return cards[0].offsetWidth + 24;
         }
 
+        function updateFocus() {
+            var atStart = currentIndex === 0;
+            var atEnd = currentIndex >= getMaxIndex();
+            prevBtn.style.opacity = atStart ? '0.25' : '1';
+            prevBtn.style.pointerEvents = atStart ? 'none' : '';
+            nextBtn.style.opacity = atEnd ? '0.25' : '1';
+            nextBtn.style.pointerEvents = atEnd ? 'none' : '';
+            cards.forEach(function(card) {
+                card.style.opacity = '1';
+                card.style.transform = '';
+                card.style.borderColor = '';
+            });
+        }
+
         function goTo(index) {
             currentIndex = Math.max(0, Math.min(index, getMaxIndex()));
             slider.scrollTo({ left: currentIndex * getCardWidth(), behavior: 'smooth' });
             updateDots();
+            updateFocus();
         }
 
         function buildDots() {
@@ -2026,8 +1819,10 @@
             currentIndex = Math.min(currentIndex, getMaxIndex());
             buildDots();
             slider.scrollTo({ left: currentIndex * getCardWidth() });
+            updateFocus();
         });
         buildDots();
+        updateFocus();
     })();
     </script>
 
@@ -2072,6 +1867,68 @@
         document.querySelectorAll('.fade-up').forEach(function(el) {
             observer.observe(el);
         });
+    })();
+    </script>
+
+    <script>
+    // Testimonials slider
+    (function() {
+        var slider = document.getElementById('testimonialsSlider');
+        if (!slider) return;
+        var prevBtn = document.getElementById('testimPrev');
+        var nextBtn = document.getElementById('testimNext');
+        var dotsEl  = document.getElementById('testimDots');
+        var cards   = slider.querySelectorAll('.testimonial-card');
+        var total   = cards.length;
+        var idx     = 0;
+
+        function getPerView() { return window.innerWidth >= 640 ? 3 : 1; }
+        function getMaxIndex() { return total - getPerView(); }
+        function cardW() { return cards[0].offsetWidth + 24; }
+
+        function updateFocus() {
+            var perView = getPerView();
+            cards.forEach(function(card, i) {
+                var active = i >= idx && i < idx + perView;
+                card.style.opacity = active ? '1' : '0.22';
+                card.style.transform = active ? 'scale(1)' : 'scale(0.93)';
+                card.style.borderColor = active ? '' : 'transparent';
+            });
+        }
+
+        function goTo(i) {
+            idx = Math.max(0, Math.min(i, getMaxIndex()));
+            slider.scrollTo({ left: idx * cardW(), behavior: 'smooth' });
+            updateFocus();
+            dotsEl.querySelectorAll('.slider-dot').forEach(function(d, j) {
+                d.className = 'slider-dot' + (j === idx ? ' active' : '');
+            });
+        }
+
+        function buildDots() {
+            dotsEl.innerHTML = '';
+            var numDots = getMaxIndex() + 1;
+            for (var i = 0; i < numDots; i++) {
+                var d = document.createElement('button');
+                d.className = 'slider-dot' + (i === 0 ? ' active' : '');
+                d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+                (function(n) { d.addEventListener('click', function() { goTo(n); }); })(i);
+                dotsEl.appendChild(d);
+            }
+        }
+
+        prevBtn.addEventListener('click', function() { goTo(idx - 1); });
+        nextBtn.addEventListener('click', function() { goTo(idx + 1); });
+
+        window.addEventListener('resize', function() {
+            idx = Math.min(idx, getMaxIndex());
+            buildDots();
+            slider.scrollTo({ left: idx * cardW() });
+            updateFocus();
+        });
+
+        buildDots();
+        updateFocus();
     })();
     </script>
 
