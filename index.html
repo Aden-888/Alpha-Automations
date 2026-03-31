@@ -41,6 +41,7 @@
             color: var(--text-primary);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
         a { color: inherit; text-decoration: none; }
@@ -415,7 +416,6 @@
             scrollbar-width: none;
             padding-bottom: 8px;
             overscroll-behavior-x: contain;
-            touch-action: pan-y;
         }
 
         .portfolio-grid::-webkit-scrollbar { display: none; }
@@ -425,7 +425,7 @@
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
             padding: 32px;
-            transition: opacity 0.45s cubic-bezier(0.22,1,0.36,1), transform 0.45s cubic-bezier(0.22,1,0.36,1), border-color 0.2s, box-shadow 0.3s, background 0.2s;
+            transition: all 0.3s;
             min-width: 100%;
             scroll-snap-align: start;
             flex: 0 0 100%;
@@ -689,7 +689,6 @@
         }
 
         /* Testimonials */
-        /* Testimonials unified slider */
         .testimonials-slider {
             display: flex;
             gap: 24px;
@@ -710,7 +709,7 @@
             border-radius: var(--radius-lg);
             padding: 28px;
             box-sizing: border-box;
-            transition: opacity 0.4s cubic-bezier(0.22,1,0.36,1), transform 0.4s cubic-bezier(0.22,1,0.36,1), border-color 0.2s;
+            transition: border-color 0.2s;
         }
 
         @media (min-width: 640px) {
@@ -1050,7 +1049,11 @@
 
         .process-panel {
             display: none;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 640px) {
+            .process-panel { grid-template-columns: 1fr 1fr; }
         }
 
         .process-panel.active { display: grid; }
@@ -1578,7 +1581,7 @@
                     <p>I work with plumbers, electricians, construction firms, real estate agents, F&B businesses, digital agencies, and more. If it's repetitive and it's eating your time, I can probably automate it.</p>
                     <div class="stats-grid">
                         <div class="stat">
-                            <div class="stat-value">40+</div>
+                            <div class="stat-value">20+</div>
                             <div class="stat-label">Projects Delivered</div>
                         </div>
                         <div class="stat">
@@ -1740,46 +1743,24 @@
     </a>
 
     <script>
+    // Portfolio slider
     (function() {
-        const slider = document.getElementById('portfolioSlider');
-        const prevBtn = document.getElementById('sliderPrev');
-        const nextBtn = document.getElementById('sliderNext');
-        const dotsContainer = document.getElementById('sliderDots');
-        const cards = slider.querySelectorAll('.project-card');
-        const total = cards.length;
+        var slider = document.getElementById('portfolioSlider');
+        var prevBtn = document.getElementById('sliderPrev');
+        var nextBtn = document.getElementById('sliderNext');
+        var dotsContainer = document.getElementById('sliderDots');
+        var cards = slider.querySelectorAll('.project-card');
+        var total = cards.length;
         var currentIndex = 0;
 
-        function getPerView() {
-            return window.innerWidth >= 640 ? 3 : 1;
-        }
-
-        function getMaxIndex() {
-            return total - getPerView();
-        }
-
-        function getCardWidth() {
-            return cards[0].offsetWidth + 24;
-        }
-
-        function updateFocus() {
-            var atStart = currentIndex === 0;
-            var atEnd = currentIndex >= getMaxIndex();
-            prevBtn.style.opacity = atStart ? '0.25' : '1';
-            prevBtn.style.pointerEvents = atStart ? 'none' : '';
-            nextBtn.style.opacity = atEnd ? '0.25' : '1';
-            nextBtn.style.pointerEvents = atEnd ? 'none' : '';
-            cards.forEach(function(card) {
-                card.style.opacity = '1';
-                card.style.transform = '';
-                card.style.borderColor = '';
-            });
-        }
+        function getPerView() { return window.innerWidth >= 640 ? 3 : 1; }
+        function getMaxIndex() { return total - getPerView(); }
+        function getCardWidth() { return cards[0].offsetWidth + 24; }
 
         function goTo(index) {
             currentIndex = Math.max(0, Math.min(index, getMaxIndex()));
             slider.scrollTo({ left: currentIndex * getCardWidth(), behavior: 'smooth' });
             updateDots();
-            updateFocus();
         }
 
         function buildDots() {
@@ -1803,7 +1784,49 @@
         prevBtn.addEventListener('click', function() { goTo(currentIndex - 1); });
         nextBtn.addEventListener('click', function() { goTo(currentIndex + 1); });
 
-        // Process tabs
+        // Touch direction detection — prevent vertical swipes from getting stuck
+        var txStart, tyStart, touchLocked;
+        slider.addEventListener('touchstart', function(e) {
+            txStart = e.touches[0].clientX;
+            tyStart = e.touches[0].clientY;
+            touchLocked = null;
+        }, { passive: true });
+        slider.addEventListener('touchmove', function(e) {
+            if (touchLocked === null) {
+                var dx = Math.abs(e.touches[0].clientX - txStart);
+                var dy = Math.abs(e.touches[0].clientY - tyStart);
+                if (dx > 6 || dy > 6) touchLocked = dy > dx ? 'v' : 'h';
+            }
+            if (touchLocked === 'v') slider.style.overflowX = 'hidden';
+            else slider.style.overflowX = '';
+        }, { passive: true });
+        slider.addEventListener('touchend', function() {
+            slider.style.overflowX = '';
+            touchLocked = null;
+        }, { passive: true });
+
+        var scrollTimer;
+        slider.addEventListener('scroll', function() {
+            clearTimeout(scrollTimer);
+            scrollTimer = setTimeout(function() {
+                var newIdx = Math.round(slider.scrollLeft / getCardWidth());
+                newIdx = Math.max(0, Math.min(newIdx, getMaxIndex()));
+                if (newIdx !== currentIndex) { currentIndex = newIdx; updateDots(); }
+            }, 80);
+        });
+
+        window.addEventListener('resize', function() {
+            currentIndex = Math.min(currentIndex, getMaxIndex());
+            buildDots();
+            slider.scrollTo({ left: currentIndex * getCardWidth() });
+        });
+        buildDots();
+    })();
+    </script>
+
+    <script>
+    // Process tabs
+    (function() {
         var processTabs = document.querySelectorAll('.process-tab');
         var processPanels = document.querySelectorAll('.process-panel');
         processTabs.forEach(function(tab) {
@@ -1815,15 +1838,85 @@
                 document.querySelector('.process-panel[data-step="' + idx + '"]').classList.add('active');
             });
         });
+    })();
+    </script>
+
+    <script>
+    // Testimonials slider
+    (function() {
+        var slider = document.getElementById('testimonialsSlider');
+        if (!slider) return;
+        var prevBtn = document.getElementById('testimPrev');
+        var nextBtn = document.getElementById('testimNext');
+        var dotsEl = document.getElementById('testimDots');
+        var cards = slider.querySelectorAll('.testimonial-card');
+        var total = cards.length;
+        var idx = 0;
+
+        function getPerView() { return window.innerWidth >= 640 ? 3 : 1; }
+        function getMaxIndex() { return total - getPerView(); }
+        function cardW() { return cards[0].offsetWidth + 24; }
+
+        function goTo(i) {
+            idx = Math.max(0, Math.min(i, getMaxIndex()));
+            slider.scrollTo({ left: idx * cardW(), behavior: 'smooth' });
+            dotsEl.querySelectorAll('.slider-dot').forEach(function(d, j) {
+                d.className = 'slider-dot' + (j === idx ? ' active' : '');
+            });
+        }
+
+        function buildDots() {
+            dotsEl.innerHTML = '';
+            var numDots = getMaxIndex() + 1;
+            for (var i = 0; i < numDots; i++) {
+                var d = document.createElement('button');
+                d.className = 'slider-dot' + (i === 0 ? ' active' : '');
+                d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+                (function(n) { d.addEventListener('click', function() { goTo(n); }); })(i);
+                dotsEl.appendChild(d);
+            }
+        }
+
+        prevBtn.addEventListener('click', function() { goTo(idx - 1); });
+        nextBtn.addEventListener('click', function() { goTo(idx + 1); });
+
+        // Touch direction detection — prevent vertical swipes from getting stuck
+        var txStart, tyStart, touchLocked;
+        slider.addEventListener('touchstart', function(e) {
+            txStart = e.touches[0].clientX;
+            tyStart = e.touches[0].clientY;
+            touchLocked = null;
+        }, { passive: true });
+        slider.addEventListener('touchmove', function(e) {
+            if (touchLocked === null) {
+                var dx = Math.abs(e.touches[0].clientX - txStart);
+                var dy = Math.abs(e.touches[0].clientY - tyStart);
+                if (dx > 6 || dy > 6) touchLocked = dy > dx ? 'v' : 'h';
+            }
+            if (touchLocked === 'v') slider.style.overflowX = 'hidden';
+            else slider.style.overflowX = '';
+        }, { passive: true });
+        slider.addEventListener('touchend', function() {
+            slider.style.overflowX = '';
+            touchLocked = null;
+        }, { passive: true });
+
+        var scrollTimer;
+        slider.addEventListener('scroll', function() {
+            clearTimeout(scrollTimer);
+            scrollTimer = setTimeout(function() {
+                var newIdx = Math.round(slider.scrollLeft / cardW());
+                newIdx = Math.max(0, Math.min(newIdx, getMaxIndex()));
+                if (newIdx !== idx) { idx = newIdx; dotsEl.querySelectorAll('.slider-dot').forEach(function(d, j) { d.className = 'slider-dot' + (j === idx ? ' active' : ''); }); }
+            }, 80);
+        });
 
         window.addEventListener('resize', function() {
-            currentIndex = Math.min(currentIndex, getMaxIndex());
+            idx = Math.min(idx, getMaxIndex());
             buildDots();
-            slider.scrollTo({ left: currentIndex * getCardWidth() });
-            updateFocus();
+            slider.scrollTo({ left: idx * cardW() });
         });
         buildDots();
-        updateFocus();
     })();
     </script>
 
@@ -1871,80 +1964,6 @@
     })();
     </script>
 
-    <script>
-    // Testimonials slider
-    (function() {
-        var slider = document.getElementById('testimonialsSlider');
-        if (!slider) return;
-        var prevBtn = document.getElementById('testimPrev');
-        var nextBtn = document.getElementById('testimNext');
-        var dotsEl  = document.getElementById('testimDots');
-        var cards   = slider.querySelectorAll('.testimonial-card');
-        var total   = cards.length;
-        var idx     = 0;
-
-        function getPerView() { return window.innerWidth >= 640 ? 3 : 1; }
-        function getMaxIndex() { return total - getPerView(); }
-        function cardW() { return cards[0].offsetWidth + 24; }
-
-        function updateFocus() {
-            cards.forEach(function(card) {
-                card.style.opacity = '1';
-                card.style.transform = '';
-                card.style.borderColor = '';
-            });
-        }
-
-        function goTo(i) {
-            idx = Math.max(0, Math.min(i, getMaxIndex()));
-            slider.scrollTo({ left: idx * cardW(), behavior: 'smooth' });
-            updateFocus();
-            dotsEl.querySelectorAll('.slider-dot').forEach(function(d, j) {
-                d.className = 'slider-dot' + (j === idx ? ' active' : '');
-            });
-        }
-
-        function buildDots() {
-            dotsEl.innerHTML = '';
-            var numDots = getMaxIndex() + 1;
-            for (var i = 0; i < numDots; i++) {
-                var d = document.createElement('button');
-                d.className = 'slider-dot' + (i === 0 ? ' active' : '');
-                d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-                (function(n) { d.addEventListener('click', function() { goTo(n); }); })(i);
-                dotsEl.appendChild(d);
-            }
-        }
-
-        prevBtn.addEventListener('click', function() { goTo(idx - 1); });
-        nextBtn.addEventListener('click', function() { goTo(idx + 1); });
-
-        var scrollTimer;
-        slider.addEventListener('scroll', function() {
-            clearTimeout(scrollTimer);
-            scrollTimer = setTimeout(function() {
-                var newIdx = Math.round(slider.scrollLeft / cardW());
-                newIdx = Math.max(0, Math.min(newIdx, getMaxIndex()));
-                if (newIdx !== idx) {
-                    idx = newIdx;
-                    dotsEl.querySelectorAll('.slider-dot').forEach(function(d, j) {
-                        d.className = 'slider-dot' + (j === idx ? ' active' : '');
-                    });
-                }
-            }, 80);
-        });
-
-        window.addEventListener('resize', function() {
-            idx = Math.min(idx, getMaxIndex());
-            buildDots();
-            slider.scrollTo({ left: idx * cardW() });
-            updateFocus();
-        });
-
-        buildDots();
-        updateFocus();
-    })();
-    </script>
 
 </body>
 </html>
